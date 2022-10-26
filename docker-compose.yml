@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "1337:1337"
+    restart: always
+  db:
+    image: "postgres:15"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 4242:8080
+volumes:
+  db:
+    driver: local      
