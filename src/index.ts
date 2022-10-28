@@ -2,6 +2,7 @@ import Koa from "koa";
 import Router from "koa-router";
 import logger from "koa-logger";
 import json from "koa-json";
+import { getQuoteById } from "./pun-data";
 
 // The port this app will be exposing
 const PORT = 1337;
@@ -10,8 +11,10 @@ const PORT = 1337;
 const app = new Koa();
 const router = new Router();
 
+console.log("ooo");
+
 // GETs a random pun from db
-router.get("/", async (ctx, next) => {
+router.get("/random", async (ctx, next) => {
   // Todo: Replace this with code that fetches a random pun
   ctx.body = { zirpun: "Det er ikke sol om noe annet skygger" };
   await next();
@@ -24,15 +27,18 @@ router.post("/", async (ctx, next) => {
   await next();
 });
 
-// Deletes a pun by id
-router.delete("/:id", async (ctx, next) => {
-  // Todo implement db action to delete pun by id
+// Get a pun by id
+router.get("/:id", async (ctx, next) => {
+  const quote = await getQuoteById(ctx.params.id);
+  ctx.body = quote;
+  await next();
 });
 
 // Updates a pun by id
 router.put("/:id", async (ctx, next) => {
   // Todo implement db action to update pun by id
   const { request } = ctx;
+  await next();
 });
 
 // middlewares:
