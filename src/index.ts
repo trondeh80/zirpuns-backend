@@ -1,8 +1,13 @@
+
 import Koa from "koa";
 import Router from "koa-router";
 import logger from "koa-logger";
 import json from "koa-json";
+import cors from "koa-cors";
+import * as dotenv from 'dotenv';
+
 import { getQuoteById } from "./pun-data";
+dotenv.config();
 
 // The port this app will be exposing
 const PORT = 1337;
@@ -11,10 +16,8 @@ const PORT = 1337;
 const app = new Koa();
 const router = new Router();
 
-console.log("ooo");
-
 // GETs a random pun from db
-router.get("/random", async (ctx, next) => {
+router.get("/", async (ctx, next) => {
   // Todo: Replace this with code that fetches a random pun
   ctx.body = { zirpun: "Det er ikke sol om noe annet skygger" };
   await next();
@@ -44,8 +47,10 @@ router.put("/:id", async (ctx, next) => {
 // middlewares:
 app.use(json());
 app.use(logger());
+app.use(cors());
 
 // routes
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(PORT, () => console.log(`Zirpuns API listening on port ${PORT}`));
+

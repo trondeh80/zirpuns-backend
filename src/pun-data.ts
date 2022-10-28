@@ -2,11 +2,17 @@ import { Client } from 'ts-postgres';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-export async function getQuoteById(id: string): Promise<any> {
+export async function getQuoteById(quoteId: string): Promise<any> {
     const client = await getClient();
-    const result = await client.query("SELECT * FROM zirpuns WHERE id = $1", [id]);
+    const result = await client.query("SELECT * FROM zirpuns WHERE id = $1", [quoteId]);
     const rows = [...result];
-    return rows.pop();
+    const first = rows.pop();
+    
+    const [ id, quote ] = [...first?.data ?? []];
+    return {
+       id,
+       quote
+    };
 }
 
 let client: Client | null = null;
