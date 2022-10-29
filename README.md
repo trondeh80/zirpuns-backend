@@ -5,8 +5,7 @@ puns made by Philipp Zirpins.
 
 ## Develop
 
-First create a new .env file in the root of the project containing this:
-`DB_USER=postgres DB_PASSWORD=changeme DB_NAME=zirpuns`
+First create copy .env-sample to .env and change the values if you want.
 
 Then start the docker containers:
 
@@ -17,6 +16,6 @@ To start development:
 - Run `npm i`
 - Run `npm run watch` to watch files in src and transpile them live.
 
-## Build & deploy
+## Docker setup
 
-The dockerfile will build and deploy a zirpun instance
+Docker starta postgres SQL server and an adminer instance. The adminer instance runs on port 4242.
