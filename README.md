@@ -5,7 +5,7 @@ puns made by Philipp Zirpins.
 
 ## Develop
 
-First create copy .env-sample to .env and change the values if you want.
+First copy the file .env-sample to .env and change the values if you want.
 
 Then start the docker containers:
 
@@ -19,3 +19,5 @@ To start development:
 ## Docker setup
 
 Docker starta postgres SQL server and an adminer instance. The adminer instance runs on port 4242.
+When postgressql starts for the first time it will create the database, and create a table with a row of test data.
+The script for this can be seen in init.sql.
