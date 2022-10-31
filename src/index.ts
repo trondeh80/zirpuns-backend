@@ -4,7 +4,7 @@ import logger from "koa-logger";
 import json from "koa-json";
 import cors from "koa-cors";
 import * as dotenv from "dotenv";
-import punsRoutes from "./punsRoutes";
+import punRoutes from "./punRoutes";
 
 // Enable .env variables
 dotenv.config();
@@ -16,7 +16,7 @@ const PORT = 1337;
 const app = new Koa();
 const router = new Router();
 
-router.use("/puns", punsRoutes.routes(), punsRoutes.allowedMethods());
+router.use("/puns", punRoutes.routes(), punRoutes.allowedMethods());
 
 // middlewares:
 app.use(json());

@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { getQuoteById, getRandomQuote } from "./pun-data";
+import { getQuoteById, getRandomQuote } from "./punData";
 
 const punsRoutes = new Router();
 
