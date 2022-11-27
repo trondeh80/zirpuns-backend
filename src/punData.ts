@@ -1,6 +1,7 @@
 import { Client } from "ts-postgres";
+import { QuoteResponse } from "./types";
 
-export async function getQuoteById(quoteId: string): Promise<any> {
+export async function getQuoteById(quoteId: string): Promise<QuoteResponse | null> {
   const client = await getClient();
   const result = await client.query("SELECT * FROM zirpuns WHERE id = $1", [
     quoteId,
@@ -14,14 +15,19 @@ export async function getQuoteById(quoteId: string): Promise<any> {
     throw new Error("Did not return any data");
   }
 
-  const [id, quote] = [...first.data];
+  const [id, quote, quotePun, author] = [...first.data];
+  if (!id || !quote) {
+    return null;
+  }
   return {
     id,
     quote,
-  };
+    quotePun,
+    author
+  } as QuoteResponse;
 }
 
-export async function getRandomQuote(): Promise<any> {
+export async function getRandomQuote(): Promise<QuoteResponse | null> {
   const client = await getClient();
   const result = await client.query(
     "SELECT * FROM zirpuns ORDER BY RANDOM() LIMIT 1"
@@ -31,11 +37,17 @@ export async function getRandomQuote(): Promise<any> {
     throw new Error("Could not get element");
   }
 
-  const [id, quote] = [...(first?.data ?? [])];
+  const [id, quote, quotePun, author] = first?.data ?? [];
+  if (!id || !quote) {
+    return null;
+  }
+
   return {
     id,
     quote,
-  };
+    quotePun,
+    author
+  } as QuoteResponse;
 }
 
 let client: Client | null = null;
