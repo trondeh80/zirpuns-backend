@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model zirpuns {
+  id       Int     @id(map: "quote_pkey") @default(autoincrement())
+  quote    String
+  quotePun String?
+  author   String?
+}
